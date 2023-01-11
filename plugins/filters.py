@@ -460,11 +460,11 @@ async def give_filter(client, message):
 @Client.on_callback_query()
 async def cb_handler(client: Bot, message):
     clicked = query.from_user.id
-    typed = query.reply_to_message.id if query.reply_to_message else query.id
+    typed = message.reply_to_message.id if message.reply_to_message else message.id
     
     if (clicked == typed) or (clicked in AUTH_USERS):
 
-        if query.data.startswith("next"):
+        if message.data.startswith("next"):
             await query.answer()
             ident, index, keyword = query.data.split("_")
             try:
