@@ -213,6 +213,7 @@ async def deletechannelfilters(client: Bot, message: Message):
             "<i>Enter in correct format!\n\n<code>/del channelid</code>  or\n"
             "<code>/del @channelusername</code></i>"
             "\n\nrun /filterstats to see connected channels",
+            parse_mode=enums.ParseMode.HTML
         )
         return
     try:
@@ -220,7 +221,7 @@ async def deletechannelfilters(client: Bot, message: Message):
             chid = int(text)
             if not len(text) == 14:
                 await message.reply_text(
-                    "Enter valid channel ID\n\nrun /filterstats to see connected channels"
+                    "Enter valid channel ID\n\nrun /filterstats to see connected channels",
                     parse_mode=enums.ParseMode.HTML
                 )
                 return
@@ -228,7 +229,7 @@ async def deletechannelfilters(client: Bot, message: Message):
             chid = text
             if not len(chid) > 2:
                 await message.reply_text(
-                    "Enter valid channel username"
+                    "Enter valid channel username",
                     parse_mode=enums.ParseMode.HTML
                 )
                 return
