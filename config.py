@@ -25,8 +25,8 @@ DATABASE_NAME = os.environ.get("DATABASE_NAME", "Cluster12")
 DATABASE_NAME2 = str(os.environ.get("DATABASE_NAME2", "Unlimited2"))
 COLLECTION_NAME = os.environ.get('COLLECTION_NAME', 'Telegram_filesa')
 
-MAX_B_TN = environ.get("MAX_B_TN", "5")
-USE_CAPTION_FILTER = bool(environ.get('USE_CAPTION_FILTER', True))
+MAX_B_TN = os.environ.get("MAX_B_TN", "5")
+USE_CAPTION_FILTER = 0s.environ.get('USE_CAPTION_FILTER', True))
 
 # ID of users that can use the bot commands
 AUTH_USERS = set(int(x) for x in os.environ.get("AUTH_USERS", "1113630298").split())
