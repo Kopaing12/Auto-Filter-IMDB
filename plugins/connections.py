@@ -1,8 +1,11 @@
+
 from pyrogram import filters, Client, enums
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from database.connections_mdb import add_connection, all_connections, if_active, delete_connection
-
+from config import ADMINS
 import logging
+
+
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.ERROR)
@@ -15,7 +18,7 @@ async def addconnection(client, message):
         return await message.reply(f"You are anonymous admin. Use /connect {message.chat.id} in PM")
     chat_type = message.chat.type
 
-    if chat_type == "private":
+    if chat_type == enums.ChatType.PRIVATE:
         try:
             cmd, group_id = message.text.split(" ", 1)
         except:
@@ -27,14 +30,14 @@ async def addconnection(client, message):
             )
             return
 
-    elif chat_type in ["group", "supergroup"]:
+    elif chat_type in [enums.ChatType.GROUP, enums.ChatType.SUPERGROUP]:
         group_id = message.chat.id
 
     try:
         st = await client.get_chat_member(group_id, userid)
         if (
-                st.status != "administrator"
-                and st.status != "creator"
+                st.status != enums.ChatMemberStatus.ADMINISTRATOR
+                and st.status != enums.ChatMemberStatus.OWNER
                 and userid not in ADMINS
         ):
             await message.reply_text("You should be an admin in Given group!", quote=True)
@@ -44,13 +47,12 @@ async def addconnection(client, message):
         await message.reply_text(
             "Invalid Group ID!\n\nIf correct, Make sure I'm present in your group!!",
             quote=True,
-             parse_mode=enums.ParseMode.HTML
         )
 
         return
     try:
         st = await client.get_chat_member(group_id, "me")
-        if st.status == "administrator":
+        if st.status == enums.ChatMemberStatus.ADMINISTRATOR:
             ttl = await client.get_chat(group_id)
             title = ttl.title
 
@@ -59,13 +61,13 @@ async def addconnection(client, message):
                 await message.reply_text(
                     f"Successfully connected to **{title}**\nNow manage your group from my pm !",
                     quote=True,
-                    parse_mode="md"
+                    parse_mode=enums.ParseMode.MARKDOWN
                 )
-                if chat_type in ["group", "supergroup"]:
+                if chat_type in [enums.ChatType.GROUP, enums.ChatType.SUPERGROUP]:
                     await client.send_message(
                         userid,
                         f"Connected to **{title}** !",
-                        parse_mode="md"
+                        parse_mode=enums.ParseMode.MARKDOWN
                     )
             else:
                 await message.reply_text(
@@ -87,16 +89,16 @@ async def deleteconnection(client, message):
         return await message.reply(f"You are anonymous admin. Use /connect {message.chat.id} in PM")
     chat_type = message.chat.type
 
-    if chat_type == "private":
+    if chat_type == enums.ChatType.PRIVATE:
         await message.reply_text("Run /connections to view or disconnect from groups!", quote=True)
 
-    elif chat_type in ["group", "supergroup"]:
+    elif chat_type in [enums.ChatType.GROUP, enums.ChatType.SUPERGROUP]:
         group_id = message.chat.id
 
         st = await client.get_chat_member(group_id, userid)
         if (
-                st.status != "administrator"
-                and st.status != "creator"
+                st.status != enums.ChatMemberStatus.ADMINISTRATOR
+                and st.status != enums.ChatMemberStatus.OWNER
                 and str(userid) not in ADMINS
         ):
             return
