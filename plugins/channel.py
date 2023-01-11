@@ -192,12 +192,12 @@ async def addchannel(client: Bot, message: Message):
     if docs:
         await savefiles(docs, group_id)
     else:
-        await intmsg.edit_text("ချန်နယ်ကို ထည့်၍မရပါ။ အချိန်တစ်ခုပြီးမှ ကြိုးစားပါ။!")
+        await intmsg.edit_text("ချန်နယ်ကို ထည့်၍မရပါ။ အချိန်တစ်ခုပြီးမှ ကြိုးစားပါ။!", parse_mode=enums.ParseMode.HTML)
         return
 
     await channelgroup(channel_id, channel_name, group_id, group_name)
 
-    await intmsg.edit_text("ချန်နယ်ကို အောင်မြင်စွာ ထည့်သွင်းခဲ့သည်။!")
+    await intmsg.edit_text("ချန်နယ်ကို အောင်မြင်စွာ ထည့်သွင်းခဲ့သည်။!", parse_mode=enums.ParseMode.HTML)
 
 
 @Client.on_message(filters.group & filters.command(["dell"]))
