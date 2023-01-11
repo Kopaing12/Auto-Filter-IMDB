@@ -8,7 +8,7 @@ import time
 
 from logging.handlers import RotatingFileHandler
 
-from .translation import Translation
+from .bot import Translation
 
 # Change Accordingly While Deploying To A VPS
 APP_ID = int(os.environ.get("APP_ID"))
