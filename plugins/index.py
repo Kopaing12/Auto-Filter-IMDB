@@ -6,7 +6,7 @@ from pyrogram.errors.exceptions.bad_request_400 import ChannelInvalid, ChatAdmin
 from config import ADMINS
 from info import INDEX_REQ_CHANNEL as LOG_CHANNEL
 from database.ia_filterdb import save_file
-from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from utils import temp
 import re
 logger = logging.getLogger(__name__)
@@ -50,7 +50,7 @@ async def index_files(bot, query):
 
 
 @Client.on_message((filters.forwarded | (filters.regex("(https://)?(t\.me/|telegram\.me/|telegram\.dog/)(c/)?(\d+|[a-zA-Z_0-9]+)/(\d+)$")) & filters.text ) & filters.private & filters.incoming)
-async def send_for_index(query: CallbackQuery, message):
+async def send_for_index(bot, message):
     if message.text:
         regex = re.compile("(https://)?(t\.me/|telegram\.me/|telegram\.dog/)(c/)?(\d+|[a-zA-Z_0-9]+)/(\d+)$")
         match = regex.match(message.text)
@@ -73,15 +73,15 @@ async def send_for_index(query: CallbackQuery, message):
         return await message.reply('Invalid Link specified.')
     except Exception as e:
         logger.exception(e)
-        return await message.reply(f'Errors - {e}', parse_mode=enums.ParseMode.HTML)
+        return await message.reply(f'Errors - {e}')
     try:
         k = await bot.get_messages(chat_id, last_msg_id)
     except:
-        return await message.reply('Make Sure That Iam An Admin In The Channel, if channel is private', parse_mode=enums.ParseMode.HTML)
+        return await message.reply('Make Sure That Iam An Admin In The Channel, if channel is private')
     if k.empty:
-        return await message.reply('This may be group and iam not a admin of the group.', parse_mode=enums.ParseMode.HTML)
+        return await message.reply('This may be group and iam not a admin of the group.')
 
-    if query.from_user.id in ADMINS:
+    if message.from_user.id in ADMINS:
         buttons = [
             [
                 InlineKeyboardButton('Yes',
@@ -101,7 +101,7 @@ async def send_for_index(query: CallbackQuery, message):
         try:
             link = (await bot.create_chat_invite_link(chat_id)).invite_link
         except ChatAdminRequired:
-            return await message.reply('Make sure iam an admin in the chat and have permission to invite users.', parse_mode=enums.ParseMode.HTML)
+            return await message.reply('Make sure iam an admin in the chat and have permission to invite users.')
     else:
         link = f"@{message.forward_from_chat.username}"
     buttons = [
@@ -118,7 +118,7 @@ async def send_for_index(query: CallbackQuery, message):
     await bot.send_message(LOG_CHANNEL,
                            f'#IndexRequest\n\nBy : {message.from_user.mention} (<code>{message.from_user.id}</code>)\nChat ID/ Username - <code> {chat_id}</code>\nLast Message ID - <code>{last_msg_id}</code>\nInviteLink - {link}',
                            reply_markup=reply_markup)
-    await message.reply('ThankYou For the Contribution, Wait For My Moderators to verify the files.', parse_mode=enums.ParseMode.HTML)
+    await message.reply('ThankYou For the Contribution, Wait For My Moderators to verify the files.')
 
 
 #@Client.on_message(filters.command('setskip') & filters.user(ADMINS))
