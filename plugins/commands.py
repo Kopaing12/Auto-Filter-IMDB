@@ -120,7 +120,7 @@ async def showid(client, message):
         user_id = message.chat.id
         await message.reply_text(
             f"Your ID : `{user_id}`",
-            parse_mode="md",
+            parse_mode=enums.ParseMode.MARKDOWN,
             quote=True
         )
     elif (chat_type == "group") or (chat_type == "supergroup"):
@@ -132,7 +132,7 @@ async def showid(client, message):
             reply_id = ""
         await message.reply_text(
             f"Your ID : `{user_id}`\nThis Group ID : `{chat_id}`\n\n{reply_id}",
-            parse_mode="md",
+            parse_mode=enums.ParseMode.MARKDOWN,
             quote=True
         )   
 
@@ -197,7 +197,7 @@ async def showinfo(client, message):
         f"<b>Permanant USER link</b> : <a href='tg://user?id={id}'>Click here!</a>\n\n"
         f"<b>DC ID</b> : {dcid}\n\n",
         quote=True,
-        parse_mode="html"
+        parse_mode=enums.ParseMode.HTML,
     )
 
 
@@ -296,7 +296,7 @@ async def bot_status(client,message):
         f"{quota_details}"
         f"{disk}",
         quote=True,
-        parse_mode="md"
+        parse_mode=enums.ParseMode.MARKDOWN
     )
 
 
