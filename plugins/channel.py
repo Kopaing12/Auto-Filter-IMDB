@@ -9,7 +9,7 @@ import asyncio
 from pyrogram import filters, Client, enums
 from pyrogram.types import Message, InlineKeyboardButton, InlineKeyboardMarkup
 from pyrogram.errors import UserAlreadyParticipant
-
+from plugins import VERIFY, LOGGER 
 from bot import Bot
 from config import AUTH_USERS, DOC_SEARCH, VID_SEARCH, MUSIC_SEARCH
 from database.mdb import (
