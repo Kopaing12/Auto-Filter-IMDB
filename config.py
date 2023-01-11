@@ -26,6 +26,7 @@ DATABASE_NAME2 = str(os.environ.get("DATABASE_NAME2", "Unlimited"))
 
 # ID of users that can use the bot commands
 AUTH_USERS = set(int(x) for x in os.environ.get("AUTH_USERS", "1113630298").split())
+ADMINS = AUTH_USERS
 
 # Should bot search for document files in channels
 DOC_SEARCH = os.environ.get("DOC_SEARCH", "yes").lower()
