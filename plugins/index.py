@@ -73,13 +73,13 @@ async def send_for_index(query: CallbackQuery, message):
         return await message.reply('Invalid Link specified.')
     except Exception as e:
         logger.exception(e)
-        return await message.reply(f'Errors - {e}')
+        return await message.reply(f'Errors - {e}', parse_mode=enums.ParseMode.HTML)
     try:
         k = await bot.get_messages(chat_id, last_msg_id)
     except:
-        return await message.reply('Make Sure That Iam An Admin In The Channel, if channel is private')
+        return await message.reply('Make Sure That Iam An Admin In The Channel, if channel is private', parse_mode=enums.ParseMode.HTML)
     if k.empty:
-        return await message.reply('This may be group and iam not a admin of the group.')
+        return await message.reply('This may be group and iam not a admin of the group.', parse_mode=enums.ParseMode.HTML)
 
     if query.from_user.id in ADMINS:
         buttons = [
@@ -101,7 +101,7 @@ async def send_for_index(query: CallbackQuery, message):
         try:
             link = (await bot.create_chat_invite_link(chat_id)).invite_link
         except ChatAdminRequired:
-            return await message.reply('Make sure iam an admin in the chat and have permission to invite users.')
+            return await message.reply('Make sure iam an admin in the chat and have permission to invite users.', parse_mode=enums.ParseMode.HTML)
     else:
         link = f"@{message.forward_from_chat.username}"
     buttons = [
@@ -118,7 +118,7 @@ async def send_for_index(query: CallbackQuery, message):
     await bot.send_message(LOG_CHANNEL,
                            f'#IndexRequest\n\nBy : {message.from_user.mention} (<code>{message.from_user.id}</code>)\nChat ID/ Username - <code> {chat_id}</code>\nLast Message ID - <code>{last_msg_id}</code>\nInviteLink - {link}',
                            reply_markup=reply_markup)
-    await message.reply('ThankYou For the Contribution, Wait For My Moderators to verify the files.')
+    await message.reply('ThankYou For the Contribution, Wait For My Moderators to verify the files.', parse_mode=enums.ParseMode.HTML)
 
 
 #@Client.on_message(filters.command('setskip') & filters.user(ADMINS))
