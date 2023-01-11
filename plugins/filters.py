@@ -460,8 +460,7 @@ async def give_filter(client, message):
 @Client.on_callback_query()
 async def cb_handler(client: Bot, query: CallbackQuery):
     clicked = query.from_user.id
-    typed = query.message.reply_to_message.from_user.id
-
+    typed = query.message.reply_to_message.id
     if (clicked == typed) or (clicked in AUTH_USERS):
 
         if query.data.startswith("next"):
