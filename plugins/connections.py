@@ -44,6 +44,7 @@ async def addconnection(client, message):
         await message.reply_text(
             "Invalid Group ID!\n\nIf correct, Make sure I'm present in your group!!",
             quote=True,
+             parse_mode=enums.ParseMode.HTML
         )
 
         return
