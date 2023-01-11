@@ -107,7 +107,7 @@ async def deleteconnection(client, message):
         if delcon:
             await message.reply_text("Successfully disconnected from this chat", parse_mode=enums.ParseMode.HTML, quote=True)
         else:
-            await message.reply_text("This chat isn't connected to me!\nDo /connect to connect.", quote=True)
+            await message.reply_text("This chat isn't connected to me!\nDo /connect to connect.", parse_mode=enums.ParseMode.HTML, quote=True)
 
 
 @Client.on_message(filters.private & filters.command(["connections"]))
