@@ -458,7 +458,7 @@ async def give_filter(client, message):
             )
 
 @Client.on_callback_query()
-async def cb_handler(client: Bot, query: CallbackQuery):
+async def cb_handler(bot: Bot, query: types.CallbackQuery):
     clicked = query.from_user.id
     typed = query.from_user.id
     
