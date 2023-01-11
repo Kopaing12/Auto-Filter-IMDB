@@ -265,7 +265,7 @@ async def deletechannelfilters(client: Bot, message: Message):
 
     already_added = await ifexists(channel_id, group_id)
     if not already_added:
-        await intmsg.edit_text("That channel is not currently added in db!")
+        await intmsg.edit_text("That channel is not currently added in db!", parse_mode=enums.ParseMode.HTML)
         return
 
     delete_files = await deletefiles(channel_id, channel_name, group_id, group_name)
@@ -311,17 +311,19 @@ async def deleteallfilters(client: Bot, message: Message):
 
     if delete_all == 0:
         await intmsg.edit_text(
-            "All filters from group deleted successfully!"
+            "All filters from group deleted successfully!",
+            parse_mode=enums.ParseMode.HTML
            
         )
     elif delete_all == 1:
         await intmsg.edit_text(
             "Nothing to delete!!",
-            
+            parse_mode=enums.ParseMode.HTML            
         )
     elif delete_all == 2:
         await intmsg.edit_text(
-            "Couldn't delete filters. Try again after sometime.."
+            "Couldn't delete filters. Try again after sometime..",
+            parse_mode=enums.ParseMode.HTML
         )  
 
 
