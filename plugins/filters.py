@@ -464,7 +464,7 @@ async def cb_handler(client: Bot, query: CallbackQuery):
     
     if (clicked == typed) or (clicked in AUTH_USERS):
 
-        if message.data.startswith("next"):
+        if query.data.startswith("next"):
             await query.answer()
             ident, index, keyword = query.data.split("_")
             try:
