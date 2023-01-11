@@ -59,7 +59,7 @@ from database.filters_mdb import(
 BUTTONS = {}
 
 
-@Client.on_message(filters.command(Config.ADD_FILTER_CMD))
+@Bot.on_message(filters.command(Config.ADD_FILTER_CMD))
 async def addfilter(client, message):
       
     userid = message.from_user.id
