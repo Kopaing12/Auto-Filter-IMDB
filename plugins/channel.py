@@ -6,7 +6,7 @@
 import re
 import asyncio
 
-from pyrogram import Client, filters
+from pyrogram import filters, Client, enums
 from pyrogram.types import Message, InlineKeyboardButton, InlineKeyboardMarkup
 from pyrogram.errors import UserAlreadyParticipant
 
@@ -39,6 +39,7 @@ async def addchannel(client: Bot, message: Message):
             "<i>Enter in correct format!\n\n<code>/addd channelid</code>  or\n"
             "<code>/addd @channelusername</code></i>"
             "\n\nGet Channel id from @MT_ID_BOT",
+            parse_mode=enums.ParseMode.HTML
         )
         return
     try:
@@ -46,14 +47,16 @@ async def addchannel(client: Bot, message: Message):
             chid = int(text)
             if not len(text) == 14:
                 await message.reply_text(
-                    "Enter valid channel ID"
+                    "Enter valid channel ID",
+                    parse_mode=enums.ParseMode.HTML
                 )
                 return
         elif text.startswith("@"):
             chid = text
             if not len(chid) > 2:
                 await message.reply_text(
-                    "Enter valid channel username"
+                    "Enter valid channel username",
+                    parse_mode=enums.ParseMode.HTML
                 )
                 return
     except Exception:
@@ -61,6 +64,7 @@ async def addchannel(client: Bot, message: Message):
             "Enter a valid ID\n"
             "ID will be in <b>-100xxxxxxxxxx</b> format\n"
             "You can also use username of channel with @ symbol",
+            parse_mode=enums.ParseMode.HTML
         )
         return
 
@@ -68,7 +72,7 @@ async def addchannel(client: Bot, message: Message):
         invitelink = await client.export_chat_invite_link(chid)
     except:
         await message.reply_text(
-            "<i>ကျွန်ုပ်ကို သင့်ချန်နယ်တွင် စီမံခန့်ခွဲသူအဖြစ် ထည့်ပါ - 'လင့်ခ်မှတစ်ဆင့် အသုံးပြုသူများကို ဖိတ်ကြားပါ' ထပ်စမ်းကြည့်ပါ။</i>",
+            "<i>ကျွန်ုပ်ကို သင့်ချန်နယ်တွင် စီမံခန့်ခွဲသူအဖြစ် ထည့်ပါ - 'လင့်ခ်မှတစ်ဆင့် အသုံးပြုသူများကို ဖိတ်ကြားပါ' ထပ်စမ်းကြည့်ပါ။</i>", parse_mode=enums.ParseMode.HTML
         )
         return
 
@@ -86,6 +90,7 @@ async def addchannel(client: Bot, message: Message):
         await message.reply_text(
             f"<i>User {user.first_name} သင့်ချန်နယ်တွင် မပါဝင်နိုင်ခဲ့ပါ။ အသုံးပြုသူကို ချန်နယ်တွင် ပိတ်ပင်ထားခြင်း မရှိကြောင်း သေချာပါစေ။"
             "\n\nသို့မဟုတ် အသုံးပြုသူကို သင့်ချန်နယ်သို့ ကိုယ်တိုင်ထည့်ကာ ထပ်စမ်းကြည့်ပါ။</i>",
+            parse_mode=enums.ParseMode.HTML
         )
         return
 
@@ -93,14 +98,16 @@ async def addchannel(client: Bot, message: Message):
         chatdetails = await client.USER.get_chat(chid)
     except:
         await message.reply_text(
-            "<i>Send a message to your channel and try again</i>"
+            "<i>Send a message to your channel and try again</i>",
+            parse_mode=enums.ParseMode.HTML
         )
         return
 
     intmsg = await message.reply_text(
         "<i>မင်းရဲ့ချန်နယ်ဖိုင်တွေကို DB မှာထည့်နေချိန်မှာ ခဏစောင့်ပါ။"
         "\n\nIt may take some time if you have more files in channel!!"
-        "\nDon't give any other commands now!</i>"
+        "\nDon't give any other commands now!</i>",
+        parse_mode=enums.ParseMode.HTML
     )
 
     channel_id = chatdetails.id
@@ -214,6 +221,7 @@ async def deletechannelfilters(client: Bot, message: Message):
             if not len(text) == 14:
                 await message.reply_text(
                     "Enter valid channel ID\n\nrun /filterstats to see connected channels"
+                    parse_mode=enums.ParseMode.HTML
                 )
                 return
         elif text.startswith("@"):
@@ -221,6 +229,7 @@ async def deletechannelfilters(client: Bot, message: Message):
             if not len(chid) > 2:
                 await message.reply_text(
                     "Enter valid channel username"
+                    parse_mode=enums.ParseMode.HTML
                 )
                 return
     except Exception:
@@ -228,6 +237,7 @@ async def deletechannelfilters(client: Bot, message: Message):
             "Enter a valid ID\n"
             "run /filterstats to see connected channels\n"
             "You can also use username of channel with @ symbol",
+            parse_mode=enums.ParseMode.HTML
         )
         return
 
@@ -237,12 +247,14 @@ async def deletechannelfilters(client: Bot, message: Message):
         await message.reply_text(
             "<i>အသုံးပြုသူသည် ပေးထားသောချန်နယ်တွင် ရှိနေရပါမည်။.\n\n"
             "အသုံးပြုသူရှိနေပါက၊ သင့်ချန်နယ်သို့ စာတိုတစ်စောင်ပေးပို့ပြီး ထပ်စမ်းကြည့်ပါ။</i>"
+            parse_mode=enums.ParseMode.HTML
         )
         return
 
     intmsg = await message.reply_text(
         "<i>သင့်ချန်နယ်ကို ဖျက်နေစဉ် ကျေးဇူးပြု၍ စောင့်ပါ။"
         "\n\nDon't give any other commands now!</i>"
+        parse_mode=enums.ParseMode.HTML
     )
 
     channel_id = chatdetails.id
@@ -274,7 +286,8 @@ async def delallconfirm(client: Bot, message: Message):
         reply_markup=InlineKeyboardMarkup([
             [InlineKeyboardButton(text="YES",callback_data="delallconfirm")],
             [InlineKeyboardButton(text="CANCEL",callback_data="delallcancel")]
-        ])
+        ]),
+        parse_mode=enums.ParseMode.HTML
     )
 
 
@@ -285,7 +298,8 @@ async def deleteallfilters(client: Bot, message: Message):
 
     intmsg = await message.reply_to_message.reply_text(
         "<i>သင့်ချန်နယ်ကို ဖျက်နေစဉ် ကျေးဇူးပြု၍ စောင့်ပါl.</i>"
-        "\n\nDon't give any other commands now!</i>"
+        "\n\nDon't give any other commands now!</i>",
+        parse_mode=enums.ParseMode.HTML
     )
 
     group_id = message.reply_to_message.chat.id
@@ -297,10 +311,12 @@ async def deleteallfilters(client: Bot, message: Message):
     if delete_all == 0:
         await intmsg.edit_text(
             "All filters from group deleted successfully!"
+           
         )
     elif delete_all == 1:
         await intmsg.edit_text(
-            "Nothing to delete!!"
+            "Nothing to delete!!",
+            
         )
     elif delete_all == 2:
         await intmsg.edit_text(
