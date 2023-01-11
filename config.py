@@ -21,8 +21,8 @@ TG_USER_SESSION = os.environ.get("TG_USER_SESSION", 'Media_search')
 DATABASE_URI = os.environ.get("DATABASE_URI", "mongodb+srv://bot1:bot1@cluster0.fqzak9o.mongodb.net/?retryWrites=true&w=majority")
 
 # Your database name from mongoDB
-DATABASE_NAME = os.environ.get("DATABASE_NAME", "Cluster0")
-DATABASE_NAME2 = str(os.environ.get("DATABASE_NAME2", "Unlimited"))
+DATABASE_NAME = os.environ.get("DATABASE_NAME", "Cluster12")
+DATABASE_NAME2 = str(os.environ.get("DATABASE_NAME2", "Unlimited2"))
 
 # ID of users that can use the bot commands
 AUTH_USERS = set(int(x) for x in os.environ.get("AUTH_USERS", "1113630298").split())
