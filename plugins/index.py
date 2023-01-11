@@ -6,7 +6,7 @@ from pyrogram.errors.exceptions.bad_request_400 import ChannelInvalid, ChatAdmin
 from config import ADMINS
 from info import INDEX_REQ_CHANNEL as LOG_CHANNEL
 from database.ia_filterdb import save_file
-from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
 from utils import temp
 import re
 logger = logging.getLogger(__name__)
@@ -50,7 +50,7 @@ async def index_files(bot, query):
 
 
 @Client.on_message((filters.forwarded | (filters.regex("(https://)?(t\.me/|telegram\.me/|telegram\.dog/)(c/)?(\d+|[a-zA-Z_0-9]+)/(\d+)$")) & filters.text ) & filters.private & filters.incoming)
-async def send_for_index(bot, message):
+async def send_for_index(query: CallbackQuery, message):
     if message.text:
         regex = re.compile("(https://)?(t\.me/|telegram\.me/|telegram\.dog/)(c/)?(\d+|[a-zA-Z_0-9]+)/(\d+)$")
         match = regex.match(message.text)
@@ -81,7 +81,7 @@ async def send_for_index(bot, message):
     if k.empty:
         return await message.reply('This may be group and iam not a admin of the group.')
 
-    if message.from_user.id in ADMINS:
+    if query.from_user.id in ADMINS:
         buttons = [
             [
                 InlineKeyboardButton('Yes',
