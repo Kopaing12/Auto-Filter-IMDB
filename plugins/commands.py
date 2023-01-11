@@ -13,7 +13,7 @@ import random
 
 from info import PICS, PICS2
 from os import environ
-from pyrogram import Client, filters, emuns
+from pyrogram import filters, Client, enums
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from script import script
 from pyrogram import Client as trojanz
