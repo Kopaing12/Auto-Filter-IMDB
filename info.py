@@ -1,7 +1,16 @@
 import re
 from os import environ
 
-
+id_pattern = re.compile(r'^.\d+$')
+def is_enabled(value, default):
+    if value.lower() in ["true", "yes", "1", "enable", "y"]:
+        return True
+    elif value.lower() in ["false", "no", "0", "disable", "n"]:
+        return False
+    else:
+        return default
+      
+      
 PICS = (environ.get('PICS', 'https://telegra.ph/file/14c978d31fb9372e79624.jpg https://telegra.ph/file/a5ee7fc4b2d89fe900321.jpg')).split()
 PICS2 = (environ.get('PICS', 'https://telegra.ph/file/14c978d31fb9372e79624.jpg https://telegra.ph/file/a5ee7fc4b2d89fe900321.jpg')).split()
 
