@@ -247,14 +247,14 @@ async def deletechannelfilters(client: Bot, message: Message):
     except:
         await message.reply_text(
             "<i>အသုံးပြုသူသည် ပေးထားသောချန်နယ်တွင် ရှိနေရပါမည်။.\n\n"
-            "အသုံးပြုသူရှိနေပါက၊ သင့်ချန်နယ်သို့ စာတိုတစ်စောင်ပေးပို့ပြီး ထပ်စမ်းကြည့်ပါ။</i>"
+            "အသုံးပြုသူရှိနေပါက၊ သင့်ချန်နယ်သို့ စာတိုတစ်စောင်ပေးပို့ပြီး ထပ်စမ်းကြည့်ပါ။</i>",
             parse_mode=enums.ParseMode.HTML
         )
         return
 
     intmsg = await message.reply_text(
         "<i>သင့်ချန်နယ်ကို ဖျက်နေစဉ် ကျေးဇူးပြု၍ စောင့်ပါ။"
-        "\n\nDon't give any other commands now!</i>"
+        "\n\nDon't give any other commands now!</i>",
         parse_mode=enums.ParseMode.HTML
     )
 
