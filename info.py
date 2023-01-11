@@ -22,8 +22,8 @@ AUTH_USERS = (auth_users + ADMINS) if auth_users else []
 auth_channel = environ.get('AUTH_CHANNEL')
 AUTH_CHANNEL = int(auth_channel) if auth_channel and id_pattern.search(auth_channel) else None
 
-
+LOG_CHANNEL = int(environ.get('LOG_CHANNEL', 0))
 LONG_IMDB_DESCRIPTION = is_enabled(environ.get("LONG_IMDB_DESCRIPTION", "False"), False)
 INDEX_REQ_CHANNEL = int(environ.get('INDEX_REQ_CHANNEL', LOG_CHANNEL))
 MAX_LIST_ELM = environ.get("MAX_LIST_ELM", None)
-LOG_CHANNEL = int(environ.get('LOG_CHANNEL', 0))
+
